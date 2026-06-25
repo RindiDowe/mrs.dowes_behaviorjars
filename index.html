@@ -9,7 +9,6 @@
       --red:#b01c2e;
       --dark-red:#7f1321;
       --pink:#ff7eb6;
-      --light-pink:#ffd2e6;
       --gold:#ffd76a;
       --mint:#b8f3d4;
       --teal:#80d9d1;
@@ -21,523 +20,441 @@
       --soft-ink:#61595c;
       --panel:#ffffffee;
       --line:#ead8df;
-      --shadow:0 10px 25px rgba(109, 35, 52, .16);
-      --radius:24px;
+      --shadow:0 7px 18px rgba(109, 35, 52, .14);
     }
 
     * { box-sizing:border-box; }
 
     body{
       margin:0;
-      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(circle at 10% 12%, rgba(255,126,182,.18), transparent 18%),
-        radial-gradient(circle at 88% 18%, rgba(255,215,106,.22), transparent 20%),
-        radial-gradient(circle at 18% 88%, rgba(128,217,209,.18), transparent 20%),
-        linear-gradient(180deg, #fff9fc 0%, #fff6ef 45%, #fffdf8 100%);
+        radial-gradient(circle at 7% 15%, rgba(255,126,182,.14), transparent 16%),
+        radial-gradient(circle at 93% 15%, rgba(255,215,106,.18), transparent 18%),
+        linear-gradient(180deg, #fff9fc 0%, #fff6ef 100%);
       min-height:100vh;
-    }
-
-    .candy-bg{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
       overflow:hidden;
-      z-index:0;
     }
 
-    .candy-bg span{
-      position:absolute;
-      width:18px;
-      height:18px;
-      border-radius:50%;
-      opacity:.3;
-      box-shadow: inset -3px -3px 0 rgba(255,255,255,.55);
-    }
-
-    .candy-bg span:nth-child(1){ left:4%; top:16%; background:var(--pink);}
-    .candy-bg span:nth-child(2){ left:11%; top:52%; background:var(--gold);}
-    .candy-bg span:nth-child(3){ left:17%; top:81%; background:var(--teal);}
-    .candy-bg span:nth-child(4){ left:27%; top:12%; background:var(--blue);}
-    .candy-bg span:nth-child(5){ left:38%; top:73%; background:var(--lav);}
-    .candy-bg span:nth-child(6){ left:49%; top:18%; background:var(--gold);}
-    .candy-bg span:nth-child(7){ left:61%; top:84%; background:var(--pink);}
-    .candy-bg span:nth-child(8){ left:74%; top:24%; background:var(--mint);}
-    .candy-bg span:nth-child(9){ left:83%; top:60%; background:var(--lav);}
-    .candy-bg span:nth-child(10){ left:94%; top:12%; background:var(--blue);}
-    .candy-bg span:nth-child(11){ left:90%; top:87%; background:var(--gold);}
-    .candy-bg span:nth-child(12){ left:54%; top:48%; background:var(--pink);}
-
-    .wrapper{
-      position:relative;
-      z-index:1;
+    .app{
+      height:100vh;
+      display:grid;
+      grid-template-rows:auto auto 1fr auto;
+      gap:8px;
+      padding:8px 12px;
     }
 
     header{
-      position:relative;
-      overflow:hidden;
-      background:
-        linear-gradient(135deg, var(--dark-red), var(--red) 45%, #cc3149 100%);
-      color:var(--white);
-      padding:28px 20px 34px;
-      border-bottom:8px solid #fff;
-      box-shadow:0 6px 20px rgba(0,0,0,.12);
+      background:linear-gradient(135deg,var(--dark-red),var(--red) 55%,#cc3149);
+      color:white;
+      border-radius:18px;
+      padding:10px 16px;
+      box-shadow:var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
     }
 
-    header::before{
-      content:"";
-      position:absolute;
-      inset:auto 0 0 0;
-      height:16px;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          #fff 0 16px,
-          #ffd6e7 16px 32px
-        );
-    }
-
-    .header-inner{
-      max-width:1350px;
-      margin:0 auto;
-      text-align:center;
+    .title-block{
+      min-width:0;
     }
 
     .eyebrow{
       display:inline-block;
-      background:rgba(255,255,255,.17);
-      border:2px solid rgba(255,255,255,.3);
-      padding:8px 16px;
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.28);
+      padding:4px 9px;
       border-radius:999px;
-      font-size:.95rem;
+      font-size:.74rem;
       font-weight:900;
-      letter-spacing:.5px;
+      letter-spacing:.4px;
       text-transform:uppercase;
-      margin-bottom:10px;
+      margin-bottom:3px;
     }
 
     h1{
       margin:0;
-      font-size:clamp(2.1rem, 4vw, 4.2rem);
+      font-size:clamp(1.55rem, 3vw, 2.55rem);
       line-height:1;
-      letter-spacing:.6px;
       text-transform:uppercase;
-      text-shadow:0 2px 0 rgba(0,0,0,.12);
+      white-space:nowrap;
     }
 
     header p{
-      margin:12px auto 0;
-      font-size:clamp(1rem, 1.6vw, 1.3rem);
-      max-width:760px;
+      margin:4px 0 0;
+      font-size:.95rem;
       font-weight:700;
-      opacity:.98;
+      opacity:.95;
     }
 
-    .top-bar{
-      max-width:1350px;
-      margin:18px auto 0;
-      padding:0 18px;
+    .header-candy{
+      font-size:2.2rem;
+      white-space:nowrap;
     }
 
     .top-card{
       background:var(--panel);
       border:1px solid var(--line);
       box-shadow:var(--shadow);
-      border-radius:22px;
-      padding:16px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
+      border-radius:16px;
+      padding:8px;
+      display:grid;
+      grid-template-columns:auto 180px minmax(180px,1fr) auto auto auto;
+      gap:8px;
       align-items:center;
-      justify-content:center;
     }
 
-    label, select, input, button, textarea{
-      font:inherit;
-    }
+    label, select, input, button, textarea{ font:inherit; }
 
     .pill-label{
       font-weight:900;
       color:var(--dark-red);
       background:#fff2f7;
       border:1px solid #f1c7d7;
-      padding:9px 12px;
+      padding:8px 10px;
       border-radius:999px;
+      white-space:nowrap;
     }
 
-    select, input{
-      min-height:46px;
+    select,input{
+      min-height:38px;
       border:2px solid #e8cbd6;
-      border-radius:14px;
-      padding:10px 14px;
-      background:#fff;
+      border-radius:12px;
+      padding:7px 10px;
+      background:white;
       color:var(--ink);
     }
 
-    select{
-      min-width:170px;
-    }
-
-    input{
-      min-width:250px;
-      flex:1 1 260px;
-    }
-
     button{
-      min-height:46px;
+      min-height:38px;
       border:none;
-      border-radius:16px;
-      padding:10px 15px;
+      border-radius:12px;
+      padding:7px 10px;
       font-weight:900;
-      letter-spacing:.2px;
       cursor:pointer;
-      transition:transform .08s ease, box-shadow .08s ease, opacity .1s ease;
-      box-shadow:0 5px 0 rgba(0,0,0,.10);
+      box-shadow:0 4px 0 rgba(0,0,0,.10);
+      white-space:nowrap;
     }
 
-    button:hover{ opacity:.96; }
     button:active{
       transform:translateY(2px);
-      box-shadow:0 3px 0 rgba(0,0,0,.10);
+      box-shadow:0 2px 0 rgba(0,0,0,.10);
     }
 
-    .btn-red{ background:linear-gradient(180deg, #d5344e, var(--red)); color:#fff; }
-    .btn-gold{ background:linear-gradient(180deg, #ffd978, #e4ad12); color:#4d3200; }
-    .btn-mint{ background:linear-gradient(180deg, #c7f8dd, #6ed7b2); color:#0e5d45; }
-    .btn-gray{ background:linear-gradient(180deg, #7d7276, #5a5154); color:#fff; }
+    .btn-red{ background:linear-gradient(180deg,#d5344e,var(--red)); color:white; }
+    .btn-gold{ background:linear-gradient(180deg,#ffd978,#e4ad12); color:#4d3200; }
+    .btn-mint{ background:linear-gradient(180deg,#c7f8dd,#6ed7b2); color:#0e5d45; }
+    .btn-gray{ background:linear-gradient(180deg,#7d7276,#5a5154); color:white; }
 
-    main{
-      max-width:1350px;
-      margin:18px auto 30px;
-      padding:0 18px 18px;
-    }
-
-    .hero-row{
+    .main-grid{
+      min-height:0;
       display:grid;
-      grid-template-columns:1fr auto;
-      gap:16px;
-      align-items:center;
-      margin-bottom:18px;
-    }
-
-    @media (max-width:900px){
-      .hero-row{
-        grid-template-columns:1fr;
-      }
-    }
-
-    .class-title-card,
-    .quick-stats{
-      background:var(--panel);
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
-      border-radius:24px;
-      padding:18px 20px;
-    }
-
-    .class-title-card h2{
-      margin:0;
-      font-size:clamp(2rem, 4vw, 3.5rem);
-      color:var(--red);
-      line-height:1;
-    }
-
-    .class-title-card p{
-      margin:10px 0 0;
-      color:var(--soft-ink);
-      font-size:1.06rem;
-      font-weight:700;
-    }
-
-    .quick-stats{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      justify-content:center;
-    }
-
-    .stat{
-      min-width:130px;
-      background:#fffafc;
-      border:1px solid #efdbe3;
-      border-radius:18px;
-      padding:12px 14px;
-      text-align:center;
-    }
-
-    .stat .big{
-      display:block;
-      font-size:1.9rem;
-      font-weight:900;
-      color:var(--dark-red);
-      line-height:1.1;
-    }
-
-    .stat .small{
-      display:block;
-      font-size:.92rem;
-      font-weight:800;
-      color:var(--soft-ink);
-      margin-top:4px;
-    }
-
-    .dashboard{
-      display:grid;
-      grid-template-columns:1.15fr .95fr;
-      gap:20px;
-      align-items:start;
-    }
-
-    @media (max-width:1100px){
-      .dashboard{
-        grid-template-columns:1fr;
-      }
+      grid-template-columns:1.25fr .75fr;
+      gap:10px;
     }
 
     .panel{
+      min-height:0;
       background:var(--panel);
       border:1px solid var(--line);
-      border-radius:26px;
+      border-radius:18px;
       box-shadow:var(--shadow);
       overflow:hidden;
+      display:flex;
+      flex-direction:column;
     }
 
     .panel-head{
-      padding:18px 20px;
+      padding:9px 12px;
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:12px;
-      background:linear-gradient(180deg, #fff8fb, #fff2f7);
+      gap:8px;
+      background:linear-gradient(180deg,#fff8fb,#fff2f7);
       border-bottom:1px solid #f0dce4;
     }
 
+    .panel-head h2,
     .panel-head h3{
       margin:0;
-      font-size:1.35rem;
-      text-transform:uppercase;
-      letter-spacing:.4px;
       color:var(--dark-red);
+      line-height:1;
+    }
+
+    .panel-head h2{
+      font-size:clamp(1.6rem, 3vw, 2.5rem);
+    }
+
+    .panel-head h3{
+      font-size:1.08rem;
+      text-transform:uppercase;
+      letter-spacing:.3px;
     }
 
     .chip{
       display:inline-flex;
       align-items:center;
-      gap:6px;
-      background:#fff;
+      gap:5px;
+      background:white;
       border:1px solid #efdbe3;
       border-radius:999px;
-      padding:8px 12px;
+      padding:6px 9px;
       font-weight:900;
       color:var(--ink);
       white-space:nowrap;
+      font-size:.9rem;
     }
 
-    .panel-body{
-      padding:18px;
-    }
-
-    .jar-wrap{
+    .left-panel-body{
+      min-height:0;
+      flex:1;
+      padding:10px;
       display:grid;
-      gap:18px;
+      grid-template-columns:1fr 210px;
+      gap:10px;
+    }
+
+    .jar-area{
+      min-height:0;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
     }
 
     .jar-shell{
       position:relative;
-      min-height:520px;
-      margin:0 auto;
-      width:min(100%, 520px);
-      border:10px solid #8dc8f2;
-      border-top:24px solid #8dc8f2;
-      border-radius:38px 38px 92px 92px;
+      flex:1;
+      min-height:0;
+      border:8px solid #8dc8f2;
+      border-top:20px solid #8dc8f2;
+      border-radius:30px 30px 68px 68px;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.72)),
-        repeating-linear-gradient(45deg, rgba(255,255,255,.24) 0 16px, rgba(255,255,255,.08) 16px 32px);
+        linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.72)),
+        repeating-linear-gradient(45deg,rgba(255,255,255,.22) 0 14px,rgba(255,255,255,.08) 14px 28px);
       box-shadow:
-        inset 0 0 0 5px rgba(255,255,255,.65),
-        inset -22px -12px 28px rgba(141,200,242,.18),
-        0 10px 24px rgba(120,162,199,.22);
-      padding:72px 18px 24px;
+        inset 0 0 0 4px rgba(255,255,255,.65),
+        inset -18px -10px 24px rgba(141,200,242,.18);
+      padding:52px 12px 12px;
       overflow:hidden;
     }
 
     .jar-shell::before{
       content:"Sweet Success Jar";
       position:absolute;
-      top:16px;
+      top:11px;
       left:50%;
       transform:translateX(-50%);
-      background:linear-gradient(180deg, #fff, #fff5f9);
+      background:linear-gradient(180deg,#fff,#fff5f9);
       color:var(--red);
-      border:3px solid #efb7cc;
-      box-shadow:0 5px 0 rgba(0,0,0,.06);
+      border:2px solid #efb7cc;
       border-radius:999px;
-      padding:10px 18px;
+      padding:7px 14px;
       font-weight:900;
-      font-size:1rem;
+      font-size:.92rem;
       white-space:nowrap;
     }
 
-    .jar-shell::after{
-      content:"";
-      position:absolute;
-      top:68px;
-      left:18px;
-      width:54px;
-      height:78%;
-      border-radius:40px;
-      background:linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,0));
-      transform:skewX(-8deg);
-      opacity:.7;
-    }
-
     .student-grid{
+      height:100%;
+      overflow:auto;
       display:flex;
       flex-wrap:wrap;
-      justify-content:center;
       align-content:flex-start;
-      gap:12px;
-      min-height:100%;
+      justify-content:center;
+      gap:7px;
+      padding:2px;
     }
 
     .student-card{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:8px;
-      min-height:52px;
-      padding:12px 16px;
+      gap:5px;
+      min-height:36px;
+      padding:7px 10px;
       border-radius:999px;
-      border:3px solid rgba(0,0,0,.12);
+      border:2px solid rgba(0,0,0,.10);
       color:#3a3033;
       font-weight:900;
-      font-size:clamp(1rem, 1.6vw, 1.18rem);
-      box-shadow:0 5px 0 rgba(0,0,0,.08);
-      text-align:center;
-      line-height:1.15;
+      font-size:clamp(.84rem, 1vw, 1rem);
+      box-shadow:0 3px 0 rgba(0,0,0,.07);
+      line-height:1.05;
       background:#ffe5f0;
-    }
-
-    .student-card:nth-child(5n+1){ background:linear-gradient(180deg, #ffe78f, #ffd257); }
-    .student-card:nth-child(5n+2){ background:linear-gradient(180deg, #ffc8df, #ff96c3); }
-    .student-card:nth-child(5n+3){ background:linear-gradient(180deg, #d4f7e4, #98e7bd); }
-    .student-card:nth-child(5n+4){ background:linear-gradient(180deg, #d9ecff, #a9d8ff); }
-    .student-card:nth-child(5n+5){ background:linear-gradient(180deg, #ebddff, #d0bbff); }
-
-    .student-card.out{
-      background:linear-gradient(180deg, #ededed, #dcdcdc);
-      color:#787074;
-      text-decoration:line-through;
-      box-shadow:none;
-      border-style:dashed;
-      opacity:.82;
-    }
-
-    .empty-state{
-      margin-top:48px;
-      background:#fff;
-      border:2px dashed #efc7d6;
-      border-radius:24px;
-      padding:28px 20px;
+      max-width:170px;
       text-align:center;
-      width:min(100%, 340px);
-      color:var(--soft-ink);
+    }
+
+    .student-card:nth-child(5n+1){ background:linear-gradient(180deg,#ffe78f,#ffd257); }
+    .student-card:nth-child(5n+2){ background:linear-gradient(180deg,#ffc8df,#ff96c3); }
+    .student-card:nth-child(5n+3){ background:linear-gradient(180deg,#d4f7e4,#98e7bd); }
+    .student-card:nth-child(5n+4){ background:linear-gradient(180deg,#d9ecff,#a9d8ff); }
+    .student-card:nth-child(5n+5){ background:linear-gradient(180deg,#ebddff,#d0bbff); }
+
+    .side-stack{
+      min-height:0;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      gap:8px;
+    }
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+    }
+
+    .stat{
+      background:#fffafc;
+      border:1px solid #efdbe3;
+      border-radius:14px;
+      padding:8px;
+      text-align:center;
+    }
+
+    .stat .big{
+      display:block;
+      font-size:1.55rem;
+      font-weight:900;
+      color:var(--dark-red);
+      line-height:1;
+    }
+
+    .stat .small{
+      display:block;
+      font-size:.76rem;
       font-weight:800;
+      color:var(--soft-ink);
+      margin-top:3px;
+    }
+
+    .mini-card{
+      min-height:0;
+      background:white;
+      border:1px solid #efdee5;
+      border-radius:14px;
+      padding:9px;
+      overflow:hidden;
+    }
+
+    .mini-card h4{
+      margin:0 0 7px;
+      color:var(--dark-red);
+      font-size:.92rem;
+      text-transform:uppercase;
+      letter-spacing:.2px;
+    }
+
+    .out-list,.reward-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      overflow:auto;
+      max-height:100%;
+    }
+
+    .out-chip,.reward-chip{
+      border-radius:999px;
+      padding:5px 8px;
+      font-weight:850;
+      font-size:.78rem;
+    }
+
+    .out-chip{
+      background:#f5f5f5;
+      border:1px dashed #c9c2c5;
+      color:#766d71;
+    }
+
+    .reward-chip{
+      background:#fff8df;
+      border:1px solid #d8aa2f;
+      color:#664a00;
     }
 
     .action-row{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:10px;
+      display:grid;
+      gap:7px;
     }
 
-    .tiny-note{
-      text-align:center;
-      color:var(--soft-ink);
-      font-weight:700;
-      font-size:.95rem;
-      margin-top:4px;
-    }
-
-    .teacher-panel.hidden{
-      display:none;
-    }
+    .teacher-panel.hidden{ display:none; }
 
     .teacher-content{
+      min-height:0;
+      flex:1;
+      padding:10px;
       display:grid;
-      gap:18px;
-      padding:18px;
+      grid-template-rows:auto 1fr auto;
+      gap:8px;
+      overflow:hidden;
     }
 
     .tool-card{
-      background:#fff;
+      min-height:0;
+      background:white;
       border:1px solid #efdee5;
-      border-radius:22px;
-      padding:16px;
+      border-radius:14px;
+      padding:9px;
+      overflow:hidden;
     }
 
     .tool-card h4{
-      margin:0 0 10px;
+      margin:0 0 5px;
       color:var(--dark-red);
-      font-size:1.1rem;
+      font-size:.92rem;
       text-transform:uppercase;
-      letter-spacing:.3px;
     }
 
     .tool-card p{
-      margin:0 0 10px;
+      margin:0 0 7px;
       color:var(--soft-ink);
       font-weight:700;
-      font-size:.95rem;
+      font-size:.78rem;
     }
 
     textarea{
       width:100%;
-      min-height:170px;
+      height:78px;
       border:2px solid #ebd3dc;
-      border-radius:18px;
-      padding:12px;
+      border-radius:12px;
+      padding:8px;
       background:#fffdfd;
-      resize:vertical;
+      resize:none;
       color:var(--ink);
+      font-size:.88rem;
     }
 
     .student-list{
+      height:100%;
+      overflow:auto;
       display:grid;
-      gap:10px;
-      max-height:440px;
-      overflow-y:auto;
-      padding-right:4px;
+      align-content:start;
+      gap:6px;
+      padding-right:2px;
     }
 
     .student-row{
       display:grid;
       grid-template-columns:1fr auto auto auto;
-      gap:8px;
+      gap:5px;
       align-items:center;
       background:#fffafc;
       border:1px solid #eedce4;
-      border-radius:16px;
-      padding:10px;
-    }
-
-    @media (max-width:650px){
-      .student-row{
-        grid-template-columns:1fr;
-      }
+      border-radius:12px;
+      padding:6px;
     }
 
     .student-row strong{
-      font-size:1rem;
+      font-size:.86rem;
+      line-height:1.05;
     }
 
-    .status-pill{
+    .status-pill,.streak-pill{
       justify-self:start;
-      padding:7px 10px;
+      padding:5px 7px;
       border-radius:999px;
-      font-size:.85rem;
+      font-size:.72rem;
       font-weight:900;
       border:1px solid transparent;
     }
@@ -557,210 +474,174 @@
     .streak-pill{
       background:#fff8df;
       color:#8d6702;
-      border:1px solid #efd68a;
-      border-radius:999px;
-      padding:7px 10px;
-      font-size:.85rem;
-      font-weight:900;
-      justify-self:start;
+      border-color:#efd68a;
+    }
+
+    .student-row button{
+      min-height:28px;
+      font-size:.72rem;
+      border-radius:9px;
+      padding:4px 7px;
+      box-shadow:none;
     }
 
     .reward-box{
-      background:linear-gradient(180deg, #fff9e8, #fff4cc);
+      background:linear-gradient(180deg,#fff9e8,#fff4cc);
       border:2px dashed #d8aa2f;
-      border-radius:22px;
-      padding:16px;
-      text-align:center;
+      border-radius:14px;
+      padding:9px;
+      min-height:80px;
+      overflow:hidden;
     }
 
     .reward-box h4{
-      margin:0 0 8px;
-      font-size:1.2rem;
+      margin:0 0 5px;
+      font-size:.94rem;
       color:#8a6200;
     }
 
     .reward-box p{
-      margin:0 0 12px;
+      margin:0 0 6px;
       color:#7f6b31;
       font-weight:700;
-      font-size:.95rem;
+      font-size:.76rem;
     }
 
-    .reward-list{
-      display:flex;
-      flex-wrap:wrap;
-      gap:9px;
-      justify-content:center;
-      min-height:32px;
-    }
-
-    .reward-chip{
-      background:#fff;
-      border:2px solid #d8aa2f;
-      border-radius:999px;
-      padding:8px 12px;
-      font-weight:900;
-      color:#664a00;
-    }
-
-    .out-list{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-
-    .out-chip{
-      background:#f5f5f5;
-      border:1px dashed #c9c2c5;
-      border-radius:999px;
-      padding:7px 10px;
-      font-weight:800;
-      color:#766d71;
-    }
-
-    .student-view-banner{
-      margin-top:10px;
-      display:inline-block;
-      background:#fff4cb;
-      color:#7b5900;
-      border:1px solid #e7c469;
-      border-radius:999px;
-      padding:8px 12px;
-      font-weight:900;
-      font-size:.9rem;
-    }
-
-    footer{
+    .footer{
       text-align:center;
-      padding:8px 18px 26px;
       color:var(--soft-ink);
       font-weight:800;
+      font-size:.76rem;
+      line-height:1;
+      padding-bottom:2px;
+    }
+
+    .empty-state{
+      margin:auto;
+      background:#fff;
+      border:2px dashed #efc7d6;
+      border-radius:18px;
+      padding:16px;
+      text-align:center;
+      max-width:300px;
+      color:var(--soft-ink);
+      font-weight:800;
+      font-size:.92rem;
+    }
+
+    @media (max-width:1050px){
+      body{ overflow:auto; }
+      .app{ height:auto; min-height:100vh; }
+      .top-card{ grid-template-columns:1fr 1fr; }
+      .main-grid{ grid-template-columns:1fr; }
+      .left-panel-body{ grid-template-columns:1fr; }
+      .jar-shell{ height:480px; flex:none; }
     }
   </style>
 </head>
 <body>
-  <div class="candy-bg" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span><span></span>
-  </div>
-
-  <div class="wrapper">
+  <div class="app">
     <header>
-      <div class="header-inner">
+      <div class="title-block">
         <div class="eyebrow">CES Behavior Dashboard</div>
         <h1>Sweet Success at CES</h1>
-        <p>Stay sweet. Make smart choices. Earn your treat. Project it for students, manage it with teacher tools, and track each class all in one place.</p>
+        <p>Stay sweet. Make smart choices. Earn your treat.</p>
       </div>
+      <div class="header-candy">🍬 🍭 🍫</div>
     </header>
 
-    <div class="top-bar">
-      <div class="top-card">
-        <span class="pill-label">Current Class</span>
-        <select id="classSelect"></select>
-        <input id="newClassName" placeholder="Type a class name..." />
-        <button class="btn-red" onclick="addClass()">Add Class</button>
-        <button class="btn-gray" onclick="renameClass()">Rename Current</button>
-        <button class="btn-gold" onclick="toggleTeacherMode()">Show / Hide Teacher Tools</button>
-      </div>
+    <div class="top-card">
+      <span class="pill-label">Class</span>
+      <select id="classSelect"></select>
+      <input id="newClassName" placeholder="Type a class name..." />
+      <button class="btn-red" onclick="addClass()">Add Class</button>
+      <button class="btn-gray" onclick="renameClass()">Rename</button>
+      <button class="btn-gold" onclick="toggleTeacherMode()">Teacher Tools</button>
     </div>
 
-    <main>
-      <div class="hero-row">
-        <div class="class-title-card">
+    <section class="main-grid">
+      <div class="panel">
+        <div class="panel-head">
           <h2 id="currentClassTitle">Class 1</h2>
-          <p>Students shown in the jar are still “in” for Sweet Success today.</p>
-          <div class="student-view-banner">Project this on your board for a quick visual each class.</div>
+          <div class="chip">🍬 <span id="jarChipCount">0</span> in jar</div>
         </div>
-        <div class="quick-stats">
-          <div class="stat">
-            <span class="big" id="statTotal">0</span>
-            <span class="small">Students</span>
+
+        <div class="left-panel-body">
+          <div class="jar-area">
+            <div class="jar-shell">
+              <div id="inJarGrid" class="student-grid"></div>
+            </div>
           </div>
-          <div class="stat">
-            <span class="big" id="statIn">0</span>
-            <span class="small">In Jar</span>
-          </div>
-          <div class="stat">
-            <span class="big" id="statOut">0</span>
-            <span class="small">Out Today</span>
-          </div>
-          <div class="stat">
-            <span class="big" id="statRewards">0</span>
-            <span class="small">Ready for Reward</span>
+
+          <div class="side-stack">
+            <div class="stats-grid">
+              <div class="stat">
+                <span class="big" id="statTotal">0</span>
+                <span class="small">Students</span>
+              </div>
+              <div class="stat">
+                <span class="big" id="statIn">0</span>
+                <span class="small">In Jar</span>
+              </div>
+              <div class="stat">
+                <span class="big" id="statOut">0</span>
+                <span class="small">Out Today</span>
+              </div>
+              <div class="stat">
+                <span class="big" id="statRewards">0</span>
+                <span class="small">Rewards</span>
+              </div>
+            </div>
+
+            <div class="mini-card">
+              <h4>Out Today</h4>
+              <div id="outList" class="out-list"></div>
+            </div>
+
+            <div class="action-row">
+              <button class="btn-mint" onclick="markAllIn()">Reset All In Jar</button>
+              <button class="btn-red" onclick="endClassVisit()">End Class / Add Visit</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <section class="dashboard">
-        <div class="panel">
-          <div class="panel-head">
-            <h3>🍬 Sweet Success Jar</h3>
-            <div class="chip"><span id="jarChipCount">0</span> Student(s) currently in the jar</div>
-          </div>
-          <div class="panel-body">
-            <div class="jar-wrap">
-              <div class="jar-shell">
-                <div id="inJarGrid" class="student-grid"></div>
-              </div>
-
-              <div class="tool-card">
-                <h4>Out of the Jar Today</h4>
-                <div id="outList" class="out-list"></div>
-              </div>
-
-              <div class="action-row">
-                <button class="btn-mint" onclick="markAllIn()">Reset All In Jar</button>
-                <button class="btn-red" onclick="endClassVisit()">End Class / Add Visit</button>
-              </div>
-              <div class="tiny-note">At the end of class, record the visit. Students still in the jar earn one Sweet Success point toward a reward.</div>
-            </div>
-          </div>
+      <div class="panel teacher-panel" id="teacherPanel">
+        <div class="panel-head">
+          <h3>Teacher Tools</h3>
+          <div class="chip">Private side</div>
         </div>
 
-        <div class="panel teacher-panel" id="teacherPanel">
-          <div class="panel-head">
-            <h3>Teacher Tools</h3>
-            <div class="chip">Private management side</div>
-          </div>
-          <div class="teacher-content">
-            <div class="tool-card">
-              <h4>Roster Setup</h4>
-              <p>Paste one student name per line. You can come back and do this later for every class.</p>
-              <textarea id="rosterInput" placeholder="Example:
-Ava
+        <div class="teacher-content">
+          <div class="tool-card">
+            <h4>Roster Setup</h4>
+            <p>Paste one student name per line.</p>
+            <textarea id="rosterInput" placeholder="Ava
 Liam
 Noah"></textarea>
-              <div class="action-row" style="justify-content:flex-start; margin-top:12px;">
-                <button class="btn-red" onclick="saveRoster()">Save Roster for This Class</button>
-              </div>
-            </div>
+            <button class="btn-red" onclick="saveRoster()" style="margin-top:7px;">Save Roster</button>
+          </div>
 
-            <div class="tool-card">
-              <h4>Student Controls</h4>
-              <p>Click Remove / Put Back to quickly move students in or out of the jar during class.</p>
-              <div id="studentList" class="student-list"></div>
-            </div>
+          <div class="tool-card">
+            <h4>Student Controls</h4>
+            <div id="studentList" class="student-list"></div>
+          </div>
 
-            <div class="reward-box">
-              <h4>🏆 Ready for Reward</h4>
-              <p>Students with 3 successful visits show up here.</p>
-              <div id="rewardList" class="reward-list"></div>
-              <div class="action-row" style="margin-top:12px;">
-                <button class="btn-gold" onclick="clearRewards()">Clear Reward Streaks</button>
-              </div>
-            </div>
+          <div class="reward-box">
+            <h4>🏆 Ready for Reward</h4>
+            <p>Students with 3 successful visits show here.</p>
+            <div id="rewardList" class="reward-list"></div>
+            <button class="btn-gold" onclick="clearRewards()" style="margin-top:7px;">Clear Rewards</button>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
-    <footer>
-      Sweet Success Behavior Jar • Cherokee Elementary School
-    </footer>
+    <div class="footer">Sweet Success Behavior Jar • Cherokee Elementary School</div>
   </div>
 
   <script>
-    const STORAGE_KEY = "sweetSuccessBehaviorJarV2";
+    const STORAGE_KEY = "sweetSuccessBehaviorJarV3Compact";
     let teacherMode = true;
 
     const defaultData = {
@@ -828,13 +709,12 @@ Noah"></textarea>
       grid.innerHTML = "";
 
       const inStudents = cls.students.filter(s => s.inJar);
-
       document.getElementById("jarChipCount").textContent = inStudents.length;
 
       if (!cls.students.length) {
         const empty = document.createElement("div");
         empty.className = "empty-state";
-        empty.innerHTML = "<strong>No roster yet.</strong><br>Add students in Teacher Tools and they'll appear here in the jar.";
+        empty.innerHTML = "<strong>No roster yet.</strong><br>Add students in Teacher Tools.";
         grid.appendChild(empty);
         return;
       }
@@ -842,7 +722,7 @@ Noah"></textarea>
       if (!inStudents.length) {
         const empty = document.createElement("div");
         empty.className = "empty-state";
-        empty.innerHTML = "<strong>No students are currently in the jar.</strong><br>Use Reset All In Jar to begin again.";
+        empty.innerHTML = "<strong>No students are currently in the jar.</strong><br>Use Reset All In Jar.";
         grid.appendChild(empty);
         return;
       }
@@ -862,12 +742,12 @@ Noah"></textarea>
       const outStudents = cls.students.filter(s => !s.inJar);
 
       if (!cls.students.length) {
-        outList.innerHTML = '<span class="out-chip">No roster added yet.</span>';
+        outList.innerHTML = '<span class="out-chip">No roster yet</span>';
         return;
       }
 
       if (!outStudents.length) {
-        outList.innerHTML = '<span class="out-chip">Nobody is out today.</span>';
+        outList.innerHTML = '<span class="out-chip">Nobody out</span>';
         return;
       }
 
@@ -884,7 +764,7 @@ Noah"></textarea>
       list.innerHTML = "";
 
       if (!cls.students.length) {
-        list.innerHTML = '<p style="margin:0; color:#61595c; font-weight:700;">No roster added yet.</p>';
+        list.innerHTML = '<p style="margin:0; color:#61595c; font-weight:700; font-size:.85rem;">No roster added yet.</p>';
         return;
       }
 
@@ -897,15 +777,15 @@ Noah"></textarea>
 
         const status = document.createElement("span");
         status.className = "status-pill " + (student.inJar ? "in-pill" : "out-pill");
-        status.textContent = student.inJar ? "IN JAR" : "OUT";
+        status.textContent = student.inJar ? "IN" : "OUT";
 
         const streak = document.createElement("span");
         streak.className = "streak-pill";
-        streak.textContent = "🍬 " + student.streak + "/3";
+        streak.textContent = student.streak + "/3";
 
         const toggle = document.createElement("button");
         toggle.className = student.inJar ? "btn-red" : "btn-mint";
-        toggle.textContent = student.inJar ? "Remove" : "Put Back";
+        toggle.textContent = student.inJar ? "Remove" : "Back";
         toggle.onclick = () => toggleStudent(index);
 
         row.appendChild(name);
@@ -924,7 +804,7 @@ Noah"></textarea>
       const ready = cls.students.filter(s => s.streak >= 3);
 
       if (!ready.length) {
-        box.innerHTML = '<span class="reward-chip">No students ready yet</span>';
+        box.innerHTML = '<span class="reward-chip">None yet</span>';
         return;
       }
 
