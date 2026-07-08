@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sweet Success Behavior Jar</title>
+  <style>
+    :root{
+      --red:#b01c2e;
+      --dark-red:#7f1321;
+      --pink:#ff7eb6;
+      --gold:#ffd76a;
+      --mint:#b8f3d4;
+      --teal:#80d9d1;
+      --blue:#a9d8ff;
+      --lav:#d8c6ff;
+      --cream:#fff8ef;
+      --white:#ffffff;
+      --ink:#2e2b2c;
+      --soft-ink:#61595c;
+      --panel:#ffffffee;
+      --line:#ead8df;
+      --shadow:0 7px 18px rgba(109, 35, 52, .14);
+    }
+
+    * { box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 7% 15%, rgba(255,126,182,.14), transparent 16%),
+        radial-gradient(circle at 93% 15%, rgba(255,215,106,.18), transparent 18%),
+        linear-gradient(180deg, #fff9fc 0%, #fff6ef 100%);
+      min-height:100vh;
+      overflow:hidden;
+    }
+
+    .app{
+      height:100vh;
+      display:grid;
+      grid-template-rows:auto auto 1fr auto;
+      gap:8px;
+      padding:8px 12px;
+    }
+
+    header{
+      background:linear-gradient(135deg,var(--dark-red),var(--red) 55%,#cc3149);
+      color:white;
+      border-radius:18px;
+      padding:10px 16px;
+      box-shadow:var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .title-block{
+      min-width:0;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.28);
+      padding:4px 9px;
+      border-radius:999px;
+      font-size:.74rem;
+      font-weight:900;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      margin-bottom:3px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(1.55rem, 3vw, 2.55rem);
+      line-height:1;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+    header p{
+      margin:4px 0 0;
+      font-size:.95rem;
+      font-weight:700;
+      opacity:.95;
+    }
+
+    .header-candy{
+      font-size:2.2rem;
+      white-space:nowrap;
+    }
+
+    .top-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:16px;
+      padding:8px;
+      display:grid;
+      grid-template-columns:auto 180px minmax(180px,1fr) auto auto auto auto;
+      gap:8px;
+      align-items:center;
+    }
+
+    label, select, input, button, textarea{ font:inherit; }
+
+    .pill-label{
+      font-weight:900;
+      color:var(--dark-red);
+      background:#fff2f7;
+      border:1px solid #f1c7d7;
+      padding:8px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    select,input{
+      min-height:38px;
+      border:2px solid #e8cbd6;
+      border-radius:12px;
+      padding:7px 10px;
+      background:white;
+      color:var(--ink);
+    }
+
+    button{
+      min-height:38px;
+      border:none;
+      border-radius:12px;
+      padding:7px 10px;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 4px 0 rgba(0,0,0,.10);
+      white-space:nowrap;
+    }
+
+    button:active{
+      transform:translateY(2px);
+      box-shadow:0 2px 0 rgba(0,0,0,.10);
+    }
+
+    .btn-red{ background:linear-gradient(180deg,#d5344e,var(--red)); color:white; }
+    .btn-gold{ background:linear-gradient(180deg,#ffd978,#e4ad12); color:#4d3200; }
+    .btn-mint{ background:linear-gradient(180deg,#c7f8dd,#6ed7b2); color:#0e5d45; }
+    .btn-gray{ background:linear-gradient(180deg,#7d7276,#5a5154); color:white; }
+    .btn-blue{ background:linear-gradient(180deg,#d9ecff,#8dc8f2); color:#164b72; }
+
+    .main-grid{
+      min-height:0;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .panel{
+      min-height:0;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .panel-head{
+      padding:9px 12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      background:linear-gradient(180deg,#fff8fb,#fff2f7);
+      border-bottom:1px solid #f0dce4;
+    }
+
+    .panel-head h2,
+    .panel-head h3{
+      margin:0;
+      color:var(--dark-red);
+      line-height:1;
+    }
+
+    .panel-head h2{
+      font-size:clamp(1.6rem, 3vw, 2.5rem);
+    }
+
+    .panel-head h3{
+      font-size:1.08rem;
+      text-transform:uppercase;
+      letter-spacing:.3px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      background:white;
+      border:1px solid #efdbe3;
+      border-radius:999px;
+      padding:6px 9px;
+      font-weight:900;
+      color:var(--ink);
+      white-space:nowrap;
+      font-size:.9rem;
+    }
+
+    .left-panel-body{
+      min-height:0;
+      flex:1;
+      padding:10px;
+      display:grid;
+      grid-template-columns:1fr 210px;
+      gap:10px;
+    }
+
+    .jar-area{
+      min-height:0;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .jar-shell{
+      position:relative;
+      flex:1;
+      min-height:0;
+      border:8px solid #8dc8f2;
+      border-top:20px solid #8dc8f2;
+      border-radius:30px 30px 68px 68px;
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.72)),
+        repeating-linear-gradient(45deg,rgba(255,255,255,.22) 0 14px,rgba(255,255,255,.08) 14px 28px);
+      box-shadow:
+        inset 0 0 0 4px rgba(255,255,255,.65),
+        inset -18px -10px 24px rgba(141,200,242,.18);
+      padding:52px 12px 12px;
+      overflow:hidden;
+    }
+
+    .jar-shell::before{
+      content:"Sweet Success Jar";
+      position:absolute;
+      top:11px;
+      left:50%;
+      transform:translateX(-50%);
+      background:linear-gradient(180deg,#fff,#fff5f9);
+      color:var(--red);
+      border:2px solid #efb7cc;
+      border-radius:999px;
+      padding:7px 14px;
+      font-weight:900;
+      font-size:.92rem;
+      white-space:nowrap;
+    }
+
+    .student-grid{
+      height:100%;
+      overflow:auto;
+      display:flex;
+      flex-wrap:wrap;
+      align-content:flex-start;
+      justify-content:center;
+      gap:7px;
+      padding:2px;
+    }
+
+    .student-card{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+      min-height:36px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:2px solid rgba(0,0,0,.10);
+      color:#3a3033;
+      font-weight:900;
+      font-size:clamp(.84rem, 1vw, 1rem);
+      box-shadow:0 3px 0 rgba(0,0,0,.07);
+      line-height:1.05;
+      background:#ffe5f0;
+      max-width:170px;
+      text-align:center;
+    }
+
+    .student-card:nth-child(5n+1){ background:linear-gradient(180deg,#ffe78f,#ffd257); }
+    .student-card:nth-child(5n+2){ background:linear-gradient(180deg,#ffc8df,#ff96c3); }
+    .student-card:nth-child(5n+3){ background:linear-gradient(180deg,#d4f7e4,#98e7bd); }
+    .student-card:nth-child(5n+4){ background:linear-gradient(180deg,#d9ecff,#a9d8ff); }
+    .student-card:nth-child(5n+5){ background:linear-gradient(180deg,#ebddff,#d0bbff); }
+
+    .side-stack{
+      min-height:0;
+      display:grid;
+      grid-template-rows:auto 1fr 1fr auto;
+      gap:8px;
+    }
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+    }
+
+    .stat{
+      background:#fffafc;
+      border:1px solid #efdbe3;
+      border-radius:14px;
+      padding:8px;
+      text-align:center;
+    }
+
+    .stat .big{
+      display:block;
+      font-size:1.55rem;
+      font-weight:900;
+      color:var(--dark-red);
+      line-height:1;
+    }
+
+    .stat .small{
+      display:block;
+      font-size:.76rem;
+      font-weight:800;
+      color:var(--soft-ink);
+      margin-top:3px;
+    }
+
+    .mini-card{
+      min-height:0;
+      background:white;
+      border:1px solid #efdee5;
+      border-radius:14px;
+      padding:9px;
+      overflow:hidden;
+    }
+
+    .mini-card h4{
+      margin:0 0 7px;
+      color:var(--dark-red);
+      font-size:.92rem;
+      text-transform:uppercase;
+      letter-spacing:.2px;
+    }
+
+    .out-list,.reward-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      overflow:auto;
+      max-height:100%;
+    }
+
+    .out-chip,.reward-chip{
+      border-radius:999px;
+      padding:5px 8px;
+      font-weight:850;
+      font-size:.78rem;
+    }
+
+    .absent-chip{
+      background:#eaf6ff;
+      border:1px dashed #8dc8f2;
+      color:#164b72;
+    }
+
+    .out-chip{
+      background:#f5f5f5;
+      border:1px dashed #c9c2c5;
+      color:#766d71;
+    }
+
+    .reward-chip{
+      background:#fff8df;
+      border:1px solid #d8aa2f;
+      color:#664a00;
+    }
+
+    .action-row{
+      display:grid;
+      gap:7px;
+    }
+
+    .teacher-panel.hidden{ display:none; }
+
+    .teacher-content{
+      min-height:0;
+      flex:1;
+      padding:10px;
+      display:grid;
+      grid-template-rows:auto 1fr 1fr auto;
+      gap:8px;
+      overflow:hidden;
+    }
+
+    .tool-card{
+      min-height:0;
+      background:white;
+      border:1px solid #efdee5;
+      border-radius:14px;
+      padding:9px;
+      overflow:hidden;
+    }
+
+    .student-controls-card{
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+    }
+
+    .tool-card h4{
+      margin:0 0 5px;
+      color:var(--dark-red);
+      font-size:.92rem;
+      text-transform:uppercase;
+    }
+
+    .tool-card p{
+      margin:0 0 7px;
+      color:var(--soft-ink);
+      font-weight:700;
+      font-size:.78rem;
+    }
+
+    textarea{
+      width:100%;
+      height:78px;
+      border:2px solid #ebd3dc;
+      border-radius:12px;
+      padding:8px;
+      background:#fffdfd;
+      resize:none;
+      color:var(--ink);
+      font-size:.88rem;
+    }
+
+    .student-list{
+      height:100%;
+      min-height:0;
+      overflow-y:auto;
+      overflow-x:hidden;
+      display:grid;
+      align-content:start;
+      gap:8px;
+      padding:4px 8px 4px 2px;
+      scrollbar-width:thin;
+    }
+
+    .student-list::-webkit-scrollbar{
+      width:12px;
+    }
+
+    .student-list::-webkit-scrollbar-track{
+      background:#fff2f7;
+      border-radius:999px;
+    }
+
+    .student-list::-webkit-scrollbar-thumb{
+      background:#d9a3b8;
+      border-radius:999px;
+      border:3px solid #fff2f7;
+    }
+
+    .student-row{
+      display:grid;
+      grid-template-columns:1fr auto auto auto auto auto;
+      gap:5px;
+      align-items:center;
+      background:#fffafc;
+      border:1px solid #eedce4;
+      border-radius:12px;
+      padding:6px;
+    }
+
+    .student-row strong{
+      grid-area:name;
+      font-size:.95rem;
+      line-height:1.1;
+    }
+
+    .status-pill,.streak-pill{
+      justify-self:end;
+      padding:5px 8px;
+      border-radius:999px;
+      font-size:.72rem;
+      font-weight:900;
+      border:1px solid transparent;
+    }
+
+    .status-pill{ grid-area:status; }
+    .streak-pill{ grid-area:streak; }
+
+    .in-pill{
+      background:#e8fff2;
+      color:#0f6a41;
+      border-color:#bce9d3;
+    }
+
+    .out-pill{
+      background:#ffeaea;
+      color:#a2192d;
+      border-color:#f0b9c6;
+    }
+
+    .absent-pill{
+      background:#eaf6ff;
+      color:#164b72;
+      border-color:#8dc8f2;
+    }
+
+    .streak-pill{
+      background:#fff8df;
+      color:#8d6702;
+      border-color:#efd68a;
+    }
+
+    .student-row button{
+      min-height:28px;
+      font-size:.72rem;
+      border-radius:9px;
+      padding:4px 7px;
+      box-shadow:none;
+    }
+
+    .reward-box{
+      background:linear-gradient(180deg,#fff9e8,#fff4cc);
+      border:2px dashed #d8aa2f;
+      border-radius:14px;
+      padding:9px;
+      min-height:80px;
+      overflow:hidden;
+    }
+
+    .reward-box h4{
+      margin:0 0 5px;
+      font-size:.94rem;
+      color:#8a6200;
+    }
+
+    .reward-box p{
+      margin:0 0 6px;
+      color:#7f6b31;
+      font-weight:700;
+      font-size:.76rem;
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--soft-ink);
+      font-weight:800;
+      font-size:.76rem;
+      line-height:1;
+      padding-bottom:2px;
+    }
+
+    .empty-state{
+      margin:auto;
+      background:#fff;
+      border:2px dashed #efc7d6;
+      border-radius:18px;
+      padding:16px;
+      text-align:center;
+      max-width:300px;
+      color:var(--soft-ink);
+      font-weight:800;
+      font-size:.92rem;
+    }
+
+    @media (max-width:1050px){
+      body{ overflow:auto; }
+      .app{ height:auto; min-height:100vh; }
+      .top-card{ grid-template-columns:1fr 1fr; }
+      .main-grid{ grid-template-columns:1fr; }
+      .left-panel-body{ grid-template-columns:1fr; }
+      .jar-shell{ height:480px; flex:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="title-block">
+        <div class="eyebrow">CES Behavior Dashboard</div>
+        <h1>Sweet Success at CES</h1>
+        <p>Stay sweet. Make smart choices. Earn your treat.</p>
+      </div>
+      <div class="header-candy">🍬 🍭 🍫</div>
+    </header>
+
+    <div class="top-card">
+      <span class="pill-label">Class</span>
+      <select id="classSelect"></select>
+      <input id="newClassName" placeholder="Type a class name..." />
+      <button class="btn-red" onclick="addClass()">Add Class</button>
+      <button class="btn-gray" onclick="renameClass()">Rename</button>
+      <button class="btn-red" onclick="deleteClass()">Delete Class</button>
+      <button class="btn-gold" onclick="toggleTeacherMode()">Teacher Tools</button>
+    </div>
+
+    <section class="main-grid">
+      <div class="panel">
+        <div class="panel-head">
+          <h2 id="currentClassTitle">Class 1</h2>
+          <div class="chip">🍬 <span id="jarChipCount">0</span> in jar</div>
+        </div>
+
+        <div class="left-panel-body">
+          <div class="jar-area">
+            <div class="jar-shell">
+              <div id="inJarGrid" class="student-grid"></div>
+            </div>
+          </div>
+
+          <div class="side-stack">
+            <div class="stats-grid">
+              <div class="stat">
+                <span class="big" id="statTotal">0</span>
+                <span class="small">Students</span>
+              </div>
+              <div class="stat">
+                <span class="big" id="statIn">0</span>
+                <span class="small">In Jar</span>
+              </div>
+              <div class="stat">
+                <span class="big" id="statOut">0</span>
+                <span class="small">Out Today</span>
+              </div>
+              <div class="stat">
+                <span class="big" id="statAbsent">0</span>
+                <span class="small">Absent</span>
+              </div>
+              <div class="stat">
+                <span class="big" id="statRewards">0</span>
+                <span class="small">Rewards</span>
+              </div>
+              <div class="stat">
+                <span class="big" id="statPresent">0</span>
+                <span class="small">Present</span>
+              </div>
+            </div>
+
+            <div class="mini-card">
+              <h4>Out Today</h4>
+              <div id="outList" class="out-list"></div>
+            </div>
+
+            <div class="mini-card">
+              <h4>Absent Today</h4>
+              <div id="absentList" class="absent-list"></div>
+            </div>
+
+            <div class="action-row">
+              <button class="btn-mint" onclick="markAllIn()">Reset Present In Jar</button>
+              <button class="btn-red" onclick="endClassVisit()">End Class / Add Visit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel teacher-panel" id="teacherPanel">
+        <div class="panel-head">
+          <h3>Teacher Tools</h3>
+          <div class="chip">Private side</div>
+        </div>
+
+        <div class="teacher-content">
+          <div class="tool-card">
+            <h4>Roster Setup</h4>
+            <p>Paste one student name per line.</p>
+            <textarea id="rosterInput" placeholder="Ava
+Liam
+Noah"></textarea>
+            <button class="btn-red" onclick="saveRoster()" style="margin-top:7px;">Save Roster</button>
+          </div>
+
+          <div class="tool-card student-controls-card">
+            <h4>Student Controls</h4>
+            <p>Absent students keep their streak but do not earn a point for that visit.</p>
+            <div id="studentList" class="student-list"></div>
+          </div>
+
+          <div class="reward-box">
+            <h4>🏆 Ready for Reward</h4>
+            <p>Students with 3 successful visits show here.</p>
+            <div id="rewardList" class="reward-list"></div>
+            <button class="btn-gold" onclick="clearRewards()" style="margin-top:7px;">Give Reward / Reset 3⁄3 Students</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">Sweet Success Behavior Jar • Cherokee Elementary School</div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "sweetSuccessBehaviorJarV4Attendance";
+    let teacherMode = true;
+
+    const defaultData = {
+      classes: [
+        { name: "Class 1", students: [] },
+        { name: "Class 2", students: [] },
+        { name: "Class 3", students: [] },
+        { name: "Class 4", students: [] },
+        { name: "Class 5", students: [] }
+      ],
+      currentClassIndex: 0
+    };
+
+    function loadData() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved ? JSON.parse(saved) : defaultData;
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    let data = loadData();
+
+    function normalizeStudent(name) {
+      return {
+        name,
+        status: "in",
+        streak: 0,
+        notes: ""
+      };
+    }
+
+    function migrateStudent(student) {
+      if (!student.status) {
+        student.status = student.inJar === false ? "out" : "in";
+      }
+      delete student.inJar;
+      if (typeof student.streak !== "number") student.streak = 0;
+      return student;
+    }
+
+    data.classes.forEach(cls => {
+      cls.students = (cls.students || []).map(migrateStudent);
+    });
+    saveData();
+
+    function isIn(student) { return student.status === "in"; }
+    function isOut(student) { return student.status === "out"; }
+    function isAbsent(student) { return student.status === "absent"; }
+
+    function currentClass() {
+      return data.classes[data.currentClassIndex];
+    }
+
+    function render() {
+      const select = document.getElementById("classSelect");
+      select.innerHTML = "";
+
+      data.classes.forEach((cls, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = cls.name;
+        select.appendChild(option);
+      });
+
+      select.value = data.currentClassIndex;
+
+      const cls = currentClass();
+      document.getElementById("currentClassTitle").textContent = cls.name;
+
+      renderJar(cls);
+      renderStudentList(cls);
+      renderRewards(cls);
+      renderOutList(cls);
+      renderAbsentList(cls);
+      renderStats(cls);
+
+      document.getElementById("teacherPanel").classList.toggle("hidden", !teacherMode);
+    }
+
+    function renderJar(cls) {
+      const grid = document.getElementById("inJarGrid");
+      grid.innerHTML = "";
+
+      const inStudents = cls.students.filter(isIn);
+      document.getElementById("jarChipCount").textContent = inStudents.length;
+
+      if (!cls.students.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.innerHTML = "<strong>No roster yet.</strong><br>Add students in Teacher Tools.";
+        grid.appendChild(empty);
+        return;
+      }
+
+      if (!inStudents.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.innerHTML = "<strong>No students are currently in the jar.</strong><br>Use Reset Present In Jar.";
+        grid.appendChild(empty);
+        return;
+      }
+
+      inStudents.forEach(student => {
+        const card = document.createElement("div");
+        card.className = "student-card";
+        card.textContent = "🍬 " + student.name;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderOutList(cls) {
+      const outList = document.getElementById("outList");
+      outList.innerHTML = "";
+
+      const outStudents = cls.students.filter(isOut);
+
+      if (!cls.students.length) {
+        outList.innerHTML = '<span class="out-chip">No roster yet</span>';
+        return;
+      }
+
+      if (!outStudents.length) {
+        outList.innerHTML = '<span class="out-chip">Nobody out</span>';
+        return;
+      }
+
+      outStudents.forEach(student => {
+        const chip = document.createElement("span");
+        chip.className = "out-chip";
+        chip.textContent = student.name;
+        outList.appendChild(chip);
+      });
+    }
+
+    function renderAbsentList(cls) {
+      const absentList = document.getElementById("absentList");
+      absentList.innerHTML = "";
+
+      const absentStudents = cls.students.filter(isAbsent);
+
+      if (!cls.students.length) {
+        absentList.innerHTML = '<span class="absent-chip">No roster yet</span>';
+        return;
+      }
+
+      if (!absentStudents.length) {
+        absentList.innerHTML = '<span class="absent-chip">Nobody absent</span>';
+        return;
+      }
+
+      absentStudents.forEach(student => {
+        const chip = document.createElement("span");
+        chip.className = "absent-chip";
+        chip.textContent = student.name;
+        absentList.appendChild(chip);
+      });
+    }
+
+    function renderStudentList(cls) {
+      const list = document.getElementById("studentList");
+      list.innerHTML = "";
+
+      if (!cls.students.length) {
+        list.innerHTML = '<p style="margin:0; color:#61595c; font-weight:700; font-size:.85rem;">No roster added yet.</p>';
+        return;
+      }
+
+      cls.students.forEach((student, index) => {
+        const row = document.createElement("div");
+        row.className = "student-row";
+
+        const name = document.createElement("strong");
+        name.textContent = student.name;
+
+        const status = document.createElement("span");
+        if (isIn(student)) {
+          status.className = "status-pill in-pill";
+          status.textContent = "IN";
+        } else if (isOut(student)) {
+          status.className = "status-pill out-pill";
+          status.textContent = "OUT";
+        } else {
+          status.className = "status-pill absent-pill";
+          status.textContent = "ABSENT";
+        }
+
+        const streak = document.createElement("span");
+        streak.className = "streak-pill";
+        streak.textContent = student.streak + "/3";
+
+        const outButton = document.createElement("button");
+        outButton.className = "btn-red";
+        outButton.textContent = "Out";
+        outButton.onclick = () => setStudentStatus(index, "out");
+
+        const absentButton = document.createElement("button");
+        absentButton.className = "btn-blue";
+        absentButton.textContent = "Absent";
+        absentButton.onclick = () => setStudentStatus(index, "absent");
+
+        const inButton = document.createElement("button");
+        inButton.className = "btn-mint";
+        inButton.textContent = "In";
+        inButton.onclick = () => setStudentStatus(index, "in");
+
+        const actions = document.createElement("div");
+        actions.className = "student-actions";
+        actions.appendChild(inButton);
+        actions.appendChild(outButton);
+        actions.appendChild(absentButton);
+
+        row.appendChild(name);
+        row.appendChild(status);
+        row.appendChild(streak);
+        row.appendChild(actions);
+
+        list.appendChild(row);
+      });
+    }
+
+    function renderRewards(cls) {
+      const box = document.getElementById("rewardList");
+      box.innerHTML = "";
+
+      const ready = cls.students.filter(s => s.streak >= 3);
+
+      if (!ready.length) {
+        box.innerHTML = '<span class="reward-chip">None yet</span>';
+        return;
+      }
+
+      ready.forEach(student => {
+        const chip = document.createElement("span");
+        chip.className = "reward-chip";
+        chip.textContent = student.name;
+        box.appendChild(chip);
+      });
+    }
+
+    function renderStats(cls) {
+      const total = cls.students.length;
+      const inJar = cls.students.filter(isIn).length;
+      const out = cls.students.filter(isOut).length;
+      const absent = cls.students.filter(isAbsent).length;
+      const rewards = cls.students.filter(s => s.streak >= 3).length;
+      const present = total - absent;
+
+      document.getElementById("statTotal").textContent = total;
+      document.getElementById("statIn").textContent = inJar;
+      document.getElementById("statOut").textContent = out;
+      document.getElementById("statAbsent").textContent = absent;
+      document.getElementById("statRewards").textContent = rewards;
+      document.getElementById("statPresent").textContent = present;
+    }
+
+    function saveRoster() {
+      const cls = currentClass();
+      const names = document.getElementById("rosterInput").value
+        .split("\n")
+        .map(n => n.trim())
+        .filter(Boolean);
+
+      cls.students = names.map(normalizeStudent);
+      document.getElementById("rosterInput").value = "";
+      saveData();
+      render();
+    }
+
+    function setStudentStatus(index, status) {
+      const cls = currentClass();
+      cls.students[index].status = status;
+      saveData();
+      render();
+    }
+
+    function markAllIn() {
+      const cls = currentClass();
+      cls.students.forEach(s => {
+        if (!isAbsent(s)) s.status = "in";
+      });
+      saveData();
+      render();
+    }
+
+    function endClassVisit() {
+      const cls = currentClass();
+      cls.students.forEach(s => {
+        if (isIn(s)) {
+          s.streak += 1;
+        } else if (isOut(s)) {
+          s.streak = 0;
+        } else if (isAbsent(s)) {
+          // Absent students keep their streak but do not earn a point.
+          s.streak = s.streak;
+        }
+        s.status = "in";
+      });
+      saveData();
+      render();
+      alert("Visit recorded! In-jar students earned a Sweet Success point. Absent students kept their streak but did not earn a point.");
+    }
+
+    function clearRewards() {
+      const cls = currentClass();
+      cls.students.forEach(s => {
+        if (s.streak >= 3) s.streak = 0;
+      });
+      saveData();
+      render();
+    }
+
+    function addClass() {
+      const input = document.getElementById("newClassName");
+      const name = input.value.trim() || "Class " + (data.classes.length + 1);
+      data.classes.push({ name, students: [] });
+      data.currentClassIndex = data.classes.length - 1;
+      input.value = "";
+      saveData();
+      render();
+    }
+
+    function renameClass() {
+      const input = document.getElementById("newClassName");
+      const name = input.value.trim();
+      if (!name) {
+        alert("Type a new class name first.");
+        return;
+      }
+      data.classes[data.currentClassIndex].name = name;
+      input.value = "";
+      saveData();
+      render();
+    }
+
+    function deleteClass() {
+      const cls = currentClass();
+
+      if (data.classes.length === 1) {
+        alert("You need to keep at least one class.");
+        return;
+      }
+
+      const confirmed = confirm("Delete " + cls.name + "? This will remove this class and its roster/streaks from this browser.");
+      if (!confirmed) return;
+
+      data.classes.splice(data.currentClassIndex, 1);
+
+      if (data.currentClassIndex >= data.classes.length) {
+        data.currentClassIndex = data.classes.length - 1;
+      }
+
+      saveData();
+      render();
+    }
+
+    function toggleTeacherMode() {
+      teacherMode = !teacherMode;
+      render();
+    }
+
+    document.getElementById("classSelect").addEventListener("change", (e) => {
+      data.currentClassIndex = Number(e.target.value);
+      saveData();
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
