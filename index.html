@@ -147,6 +147,7 @@
     .btn-gold{ background:linear-gradient(180deg,#ffd978,#e4ad12); color:#4d3200; }
     .btn-mint{ background:linear-gradient(180deg,#c7f8dd,#6ed7b2); color:#0e5d45; }
     .btn-gray{ background:linear-gradient(180deg,#7d7276,#5a5154); color:white; }
+    .btn-blue{ background:linear-gradient(180deg,#d9ecff,#8dc8f2); color:#164b72; }
 
     .main-grid{
       min-height:0;
@@ -295,7 +296,7 @@
     .side-stack{
       min-height:0;
       display:grid;
-      grid-template-rows:auto 1fr auto;
+      grid-template-rows:auto 1fr 1fr auto;
       gap:8px;
     }
 
@@ -361,6 +362,12 @@
       font-size:.78rem;
     }
 
+    .absent-chip{
+      background:#eaf6ff;
+      border:1px dashed #8dc8f2;
+      color:#164b72;
+    }
+
     .out-chip{
       background:#f5f5f5;
       border:1px dashed #c9c2c5;
@@ -385,7 +392,7 @@
       flex:1;
       padding:10px;
       display:grid;
-      grid-template-rows:auto 1fr auto;
+      grid-template-rows:auto 1fr 1fr auto;
       gap:8px;
       overflow:hidden;
     }
@@ -436,7 +443,7 @@
 
     .student-row{
       display:grid;
-      grid-template-columns:1fr auto auto auto;
+      grid-template-columns:1fr auto auto auto auto auto;
       gap:5px;
       align-items:center;
       background:#fffafc;
@@ -469,6 +476,12 @@
       background:#ffeaea;
       color:#a2192d;
       border-color:#f0b9c6;
+    }
+
+    .absent-pill{
+      background:#eaf6ff;
+      color:#164b72;
+      border-color:#8dc8f2;
     }
 
     .streak-pill{
@@ -543,9 +556,9 @@
   <div class="app">
     <header>
       <div class="title-block">
-        <div class="eyebrow">Mrs. Dowe's Behavior Dashboard</div>
+        <div class="eyebrow">CES Behavior Dashboard</div>
         <h1>Sweet Success at CES</h1>
-        <p>Stay sweet. Make good choices. Earn your treat.</p>
+        <p>Stay sweet. Make smart choices. Earn your treat.</p>
       </div>
       <div class="header-candy">🍬 🍭 🍫</div>
     </header>
@@ -557,7 +570,7 @@
       <button class="btn-red" onclick="addClass()">Add Class</button>
       <button class="btn-gray" onclick="renameClass()">Rename</button>
       <button class="btn-red" onclick="deleteClass()">Delete Class</button>
-      <button class="btn-gold" onclick="toggleTeacherMode()">Mrs. Dowe's Tools</button>
+      <button class="btn-gold" onclick="toggleTeacherMode()">Teacher Tools</button>
     </div>
 
     <section class="main-grid">
@@ -589,8 +602,16 @@
                 <span class="small">Out Today</span>
               </div>
               <div class="stat">
+                <span class="big" id="statAbsent">0</span>
+                <span class="small">Absent</span>
+              </div>
+              <div class="stat">
                 <span class="big" id="statRewards">0</span>
                 <span class="small">Rewards</span>
+              </div>
+              <div class="stat">
+                <span class="big" id="statPresent">0</span>
+                <span class="small">Present</span>
               </div>
             </div>
 
@@ -599,8 +620,13 @@
               <div id="outList" class="out-list"></div>
             </div>
 
+            <div class="mini-card">
+              <h4>Absent Today</h4>
+              <div id="absentList" class="absent-list"></div>
+            </div>
+
             <div class="action-row">
-              <button class="btn-mint" onclick="markAllIn()">Reset All In Jar</button>
+              <button class="btn-mint" onclick="markAllIn()">Reset Present In Jar</button>
               <button class="btn-red" onclick="endClassVisit()">End Class / Add Visit</button>
             </div>
           </div>
@@ -609,7 +635,7 @@
 
       <div class="panel teacher-panel" id="teacherPanel">
         <div class="panel-head">
-          <h3>Mrs. Dowe's Tools</h3>
+          <h3>Teacher Tools</h3>
           <div class="chip">Private side</div>
         </div>
 
@@ -625,6 +651,7 @@ Noah"></textarea>
 
           <div class="tool-card">
             <h4>Student Controls</h4>
+            <p>Absent students keep their streak but do not earn a point for that visit.</p>
             <div id="studentList" class="student-list"></div>
           </div>
 
@@ -632,7 +659,7 @@ Noah"></textarea>
             <h4>🏆 Ready for Reward</h4>
             <p>Students with 3 successful visits show here.</p>
             <div id="rewardList" class="reward-list"></div>
-            <button class="btn-gold" onclick="clearRewards()" style="margin-top:7px;">Clear Rewards</button>
+            <button class="btn-gold" onclick="clearRewards()" style="margin-top:7px;">Give Reward / Reset 3⁄3 Students</button>
           </div>
         </div>
       </div>
@@ -642,7 +669,7 @@ Noah"></textarea>
   </div>
 
   <script>
-    const STORAGE_KEY = "sweetSuccessBehaviorJarV3Compact";
+    const STORAGE_KEY = "sweetSuccessBehaviorJarV4Attendance";
     let teacherMode = true;
 
     const defaultData = {
@@ -670,11 +697,29 @@ Noah"></textarea>
     function normalizeStudent(name) {
       return {
         name,
-        inJar: true,
+        status: "in",
         streak: 0,
         notes: ""
       };
     }
+
+    function migrateStudent(student) {
+      if (!student.status) {
+        student.status = student.inJar === false ? "out" : "in";
+      }
+      delete student.inJar;
+      if (typeof student.streak !== "number") student.streak = 0;
+      return student;
+    }
+
+    data.classes.forEach(cls => {
+      cls.students = (cls.students || []).map(migrateStudent);
+    });
+    saveData();
+
+    function isIn(student) { return student.status === "in"; }
+    function isOut(student) { return student.status === "out"; }
+    function isAbsent(student) { return student.status === "absent"; }
 
     function currentClass() {
       return data.classes[data.currentClassIndex];
@@ -700,6 +745,7 @@ Noah"></textarea>
       renderStudentList(cls);
       renderRewards(cls);
       renderOutList(cls);
+      renderAbsentList(cls);
       renderStats(cls);
 
       document.getElementById("teacherPanel").classList.toggle("hidden", !teacherMode);
@@ -709,7 +755,7 @@ Noah"></textarea>
       const grid = document.getElementById("inJarGrid");
       grid.innerHTML = "";
 
-      const inStudents = cls.students.filter(s => s.inJar);
+      const inStudents = cls.students.filter(isIn);
       document.getElementById("jarChipCount").textContent = inStudents.length;
 
       if (!cls.students.length) {
@@ -723,7 +769,7 @@ Noah"></textarea>
       if (!inStudents.length) {
         const empty = document.createElement("div");
         empty.className = "empty-state";
-        empty.innerHTML = "<strong>No students are currently in the jar.</strong><br>Use Reset All In Jar.";
+        empty.innerHTML = "<strong>No students are currently in the jar.</strong><br>Use Reset Present In Jar.";
         grid.appendChild(empty);
         return;
       }
@@ -740,7 +786,7 @@ Noah"></textarea>
       const outList = document.getElementById("outList");
       outList.innerHTML = "";
 
-      const outStudents = cls.students.filter(s => !s.inJar);
+      const outStudents = cls.students.filter(isOut);
 
       if (!cls.students.length) {
         outList.innerHTML = '<span class="out-chip">No roster yet</span>';
@@ -757,6 +803,30 @@ Noah"></textarea>
         chip.className = "out-chip";
         chip.textContent = student.name;
         outList.appendChild(chip);
+      });
+    }
+
+    function renderAbsentList(cls) {
+      const absentList = document.getElementById("absentList");
+      absentList.innerHTML = "";
+
+      const absentStudents = cls.students.filter(isAbsent);
+
+      if (!cls.students.length) {
+        absentList.innerHTML = '<span class="absent-chip">No roster yet</span>';
+        return;
+      }
+
+      if (!absentStudents.length) {
+        absentList.innerHTML = '<span class="absent-chip">Nobody absent</span>';
+        return;
+      }
+
+      absentStudents.forEach(student => {
+        const chip = document.createElement("span");
+        chip.className = "absent-chip";
+        chip.textContent = student.name;
+        absentList.appendChild(chip);
       });
     }
 
@@ -777,22 +847,42 @@ Noah"></textarea>
         name.textContent = student.name;
 
         const status = document.createElement("span");
-        status.className = "status-pill " + (student.inJar ? "in-pill" : "out-pill");
-        status.textContent = student.inJar ? "IN" : "OUT";
+        if (isIn(student)) {
+          status.className = "status-pill in-pill";
+          status.textContent = "IN";
+        } else if (isOut(student)) {
+          status.className = "status-pill out-pill";
+          status.textContent = "OUT";
+        } else {
+          status.className = "status-pill absent-pill";
+          status.textContent = "ABSENT";
+        }
 
         const streak = document.createElement("span");
         streak.className = "streak-pill";
         streak.textContent = student.streak + "/3";
 
-        const toggle = document.createElement("button");
-        toggle.className = student.inJar ? "btn-red" : "btn-mint";
-        toggle.textContent = student.inJar ? "Remove" : "Back";
-        toggle.onclick = () => toggleStudent(index);
+        const outButton = document.createElement("button");
+        outButton.className = "btn-red";
+        outButton.textContent = "Out";
+        outButton.onclick = () => setStudentStatus(index, "out");
+
+        const absentButton = document.createElement("button");
+        absentButton.className = "btn-blue";
+        absentButton.textContent = "Absent";
+        absentButton.onclick = () => setStudentStatus(index, "absent");
+
+        const inButton = document.createElement("button");
+        inButton.className = "btn-mint";
+        inButton.textContent = "In";
+        inButton.onclick = () => setStudentStatus(index, "in");
 
         row.appendChild(name);
         row.appendChild(status);
         row.appendChild(streak);
-        row.appendChild(toggle);
+        row.appendChild(outButton);
+        row.appendChild(absentButton);
+        row.appendChild(inButton);
 
         list.appendChild(row);
       });
@@ -819,14 +909,18 @@ Noah"></textarea>
 
     function renderStats(cls) {
       const total = cls.students.length;
-      const inJar = cls.students.filter(s => s.inJar).length;
-      const out = cls.students.filter(s => !s.inJar).length;
+      const inJar = cls.students.filter(isIn).length;
+      const out = cls.students.filter(isOut).length;
+      const absent = cls.students.filter(isAbsent).length;
       const rewards = cls.students.filter(s => s.streak >= 3).length;
+      const present = total - absent;
 
       document.getElementById("statTotal").textContent = total;
       document.getElementById("statIn").textContent = inJar;
       document.getElementById("statOut").textContent = out;
+      document.getElementById("statAbsent").textContent = absent;
       document.getElementById("statRewards").textContent = rewards;
+      document.getElementById("statPresent").textContent = present;
     }
 
     function saveRoster() {
@@ -842,16 +936,18 @@ Noah"></textarea>
       render();
     }
 
-    function toggleStudent(index) {
+    function setStudentStatus(index, status) {
       const cls = currentClass();
-      cls.students[index].inJar = !cls.students[index].inJar;
+      cls.students[index].status = status;
       saveData();
       render();
     }
 
     function markAllIn() {
       const cls = currentClass();
-      cls.students.forEach(s => s.inJar = true);
+      cls.students.forEach(s => {
+        if (!isAbsent(s)) s.status = "in";
+      });
       saveData();
       render();
     }
@@ -859,16 +955,19 @@ Noah"></textarea>
     function endClassVisit() {
       const cls = currentClass();
       cls.students.forEach(s => {
-        if (s.inJar) {
+        if (isIn(s)) {
           s.streak += 1;
-        } else {
+        } else if (isOut(s)) {
           s.streak = 0;
+        } else if (isAbsent(s)) {
+          // Absent students keep their streak but do not earn a point.
+          s.streak = s.streak;
         }
-        s.inJar = true;
+        s.status = "in";
       });
       saveData();
       render();
-      alert("Visit recorded! Students who stayed in the jar earned one Sweet Success point.");
+      alert("Visit recorded! In-jar students earned a Sweet Success point. Absent students kept their streak but did not earn a point.");
     }
 
     function clearRewards() {
